@@ -5,6 +5,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 
+import static com.google.android.gms.ads.AdRequest.*;
+
 /**
  * Created by User on 05.06.2017.
  */
@@ -12,6 +14,7 @@ import com.google.android.gms.ads.AdListener;
 public class ToastListener extends AdListener {
 
     Context context;
+    String errorReason;
 
     public ToastListener(Context context) {
         super();
@@ -20,32 +23,57 @@ public class ToastListener extends AdListener {
 
     @Override
     public void onAdClosed() {
-        super.onAdClosed();
-        Toast.makeText(context, "onAdClosed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, getMethodName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onAdFailedToLoad(int i) {
-        super.onAdFailedToLoad(i);
-        Toast.makeText(context, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
+    public void onAdFailedToLoad(int errorCode) {
+        errorReason = "";
+
+        switch (errorCode) {
+            case ERROR_CODE_INTERNAL_ERROR:
+                errorReason = "INTERNAL ERROR";
+                break;
+            case ERROR_CODE_INVALID_REQUEST:
+                errorReason = "INVALID REQUEST";
+                break;
+            case ERROR_CODE_NETWORK_ERROR:
+                errorReason = "NETWORK ERROR";
+                break;
+            case ERROR_CODE_NO_FILL:
+                errorReason = "NO FILL";
+                break;
+        }
+
+        Toast.makeText(context, getMethodName() + ": " + errorReason, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onAdLeftApplication() {
-        super.onAdLeftApplication();
-        Toast.makeText(context, "onAdLeftApplication", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, getMethodName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onAdOpened() {
-        super.onAdOpened();
-        Toast.makeText(context, "onAdOpened", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, getMethodName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onAdLoaded() {
-        super.onAdLoaded();
-        Toast.makeText(context, "onAdLoaded", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, getMethodName(), Toast.LENGTH_SHORT).show();
+    }
+
+    public String getErrorReason() {
+            return errorReason == null ? "" : errorReason;
+    }
+
+    public String getMethodName()
+    {
+        final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+
+        //System. out.println(ste[ste.length-depth].getClassName()+"#"+ste[ste.length-depth].getMethodName());
+        // return ste[ste.length - depth].getMethodName();  //Wrong, fails for depth = 0
+        return ste[3].getMethodName(); //Thank you Tom Tresansky
     }
 
 

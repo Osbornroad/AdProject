@@ -10,4 +10,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gmail.osbornroad.adproject.InterstitialActivity">
 
+    <Button
+        android:id="@+id/load_interstitial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/load_interstitial"
+        android:onClick="loadInterstitial"/>
+
+    <Button
+        android:id="@+id/interstitial_not_ready"
+        android:layout_below="@id/load_interstitial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/interstitial_not_ready"
+        android:onClick="showInterstitial"/>
+
 </RelativeLayout>

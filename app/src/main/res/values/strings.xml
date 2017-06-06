@@ -3,4 +3,9 @@
     <string name="button_banner_activity">Banner Activity</string>
     <string name="button_interstitial_activity">Interstitial activity</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="load_interstitial">Load Interstitial</string>
+    <string name="interstitial_not_ready">Interstitial not ready</string>
+    <string name="loading_interstitial">Loading interstitial</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="show_interstitial">Show Interstitial</string>
 </resources>
